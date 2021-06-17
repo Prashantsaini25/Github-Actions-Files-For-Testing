@@ -1,3 +1,2 @@
 # Github-Actions-Files-For-testing
-
-https://github.com/Prashantsaini25/PrashantSaini25/blob/main/Images/maxresdefault.jpg
+<img src="https://github.com/Prashantsaini25/PrashantSaini25/blob/main/Images/maxresdefault.jpg" width="1200" height="400"/>
