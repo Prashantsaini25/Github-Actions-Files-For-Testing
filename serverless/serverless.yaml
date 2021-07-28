@@ -1,0 +1,57 @@
+service: name-of-service
+frameworkVersion: '2'
+configValidationMode: error
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 1010110
+  region: us-east-2
+  httpApi:
+    cors: true
+
+# define service wide environment variables here
+  environment:
+    DATABASE_URL: mysql://${env:USERNAME}:${env:PASSWORD}@databsename.database.com:3306/vms
+
+# add packaging information here
+#package:
+#  patterns:
+#    - '!exclude-me.js'
+#    - '!exclude-me-dir/**'
+#    - include-me.js
+#    - include-me-dir/**
+
+functions:
+  graphql:
+    handler: src/index.graphqlHandler
+    timeout: 20 # optional, in seconds, default is 6
+    events:
+     - httpApi:
+         path: /gql
+         method: get
+     - httpApi:
+         path: /gql
+         method: post
+    vpc:
+      subnetIds:
+        - subnet-06ba0000jnsjshj
+#       
+      securityGroupIds: 
+        - !Ref securityGroup
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+plugins:
+  - serverless-offline
+
+resources:
+  Resources:
+    securityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:   
+        GroupDescription: String
+        GroupName: !Ref AWS::StackName
+        VpcId: vpc-knjdhjbhjdbfhjb4
